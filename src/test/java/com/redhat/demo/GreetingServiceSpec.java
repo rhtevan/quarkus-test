@@ -24,7 +24,7 @@ import io.quarkus.test.junit.QuarkusTest;
  *     intended to be validated by the Spec, rather than facilitating implementation tests
  */
 @QuarkusTest
-public class GreetingServiceSpec extends GreetingServiceBase {
+public class GreetingServiceSpec extends GreetingServiceTest {
 
     @BeforeEach
     public void design() {
@@ -33,8 +33,8 @@ public class GreetingServiceSpec extends GreetingServiceBase {
         // must mock a concret class as a workaround
         GreetingService mockSvc = Mockito.mock(GreetingServiceImp.class);
         
-        Mockito.when(mockSvc.saySomething("John")).thenReturn("Mr. Williams");
-        Mockito.when(mockSvc.saySomething("Jane")).thenReturn("Miss Williams");
+        Mockito.when(mockSvc.saySomething("John")).thenReturn("Mr.");
+        Mockito.when(mockSvc.saySomething("Jane")).thenReturn("Miss");
 
         QuarkusMock.installMockForInstance(mockSvc, svc);
     }
