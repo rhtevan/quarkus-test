@@ -14,7 +14,7 @@ import io.quarkus.test.junit.QuarkusTest;
  * the Specification with gherkin .feature file and implement it with Steps
  * definition class.   
  * A typical workflow is as follows:
- *  1. Create an abstract Base class with injected Service instance
+ *  1. Create an abstract base class with injected Service instance as a validator
  *  2. Develop the Executable Specification by implementing a QuarkusTest class 
  *     which extends the Base class, and install a mock instance with configurations
  *     representing the desired behavior according to the specification
@@ -24,15 +24,13 @@ import io.quarkus.test.junit.QuarkusTest;
  *     intended to be validated by the Spec, rather than facilitating implementation tests
  */
 @QuarkusTest
-public class GreetingServiceSpec extends GreetingServiceTest {
+public class GreetingServiceSpec extends GreetingServiceValidator {
 
     @BeforeEach
     public void design() {
-        // Ideally mock should be dependant on interface only.
-        // Due to some unknown limitations from Quarkus Mockito integratio,
-        // must mock a concret class as a workaround
-        GreetingService mockSvc = Mockito.mock(GreetingServiceImp.class);
+        GreetingService mockSvc = Mockito.mock(GreetingService.class);
         
+        // Scenarios
         Mockito.when(mockSvc.saySomething("John")).thenReturn("Mr.");
         Mockito.when(mockSvc.saySomething("Jane")).thenReturn("Miss");
 
