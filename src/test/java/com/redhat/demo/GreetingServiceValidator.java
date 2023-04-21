@@ -15,6 +15,15 @@ import org.junit.jupiter.params.provider.ValueSource;
  */
 public abstract class GreetingServiceValidator {
 
+    /**
+     * Can't use @InjectMock due to the fact that the actual instance
+     * injected can be either a Mockito mock or real implementation depending 
+     * on the testing scenarios. 
+     * The executable specification is a QuarkusTest which config a Mockito mock
+     * based on the desired behavior, and programatically install it. The inheriated test
+     * cases from the abstract Validator class need to be aligned with the mock.
+     * The actual test class is a QuarkusTest extended from Validator.
+     */
     @Inject
     GreetingService svc;
 

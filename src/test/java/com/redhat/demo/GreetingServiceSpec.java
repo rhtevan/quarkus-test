@@ -1,5 +1,9 @@
 package com.redhat.demo;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import io.quarkus.test.junit.QuarkusMock;
@@ -26,6 +30,12 @@ import io.quarkus.test.junit.QuarkusTest;
 @QuarkusTest
 public class GreetingServiceSpec extends GreetingServiceValidator {
 
+    /**
+     * Can't use @BeforeAll due to the fact that it can be used to
+     * annotate static method. Since the the design specification method
+     * need to install the configured mock to a non static field, static method
+     * is not applicable. 
+     */
     @BeforeEach
     public void design() {
         GreetingService mockSvc = Mockito.mock(GreetingService.class);
@@ -35,5 +45,14 @@ public class GreetingServiceSpec extends GreetingServiceValidator {
         Mockito.when(mockSvc.saySomething("Jane")).thenReturn("Miss");
 
         QuarkusMock.installMockForInstance(mockSvc, svc);
+
+        // Exploring the Mockito
+    }
+
+    /**
+     * Leverage Mockito.verify method to define indirect behaviors
+     */
+    @Test
+    public void defineIndirectBehavior() {
     }
 }
