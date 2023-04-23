@@ -44,6 +44,9 @@ public class GreetingServiceSpec extends GreetingServiceValidator {
         Mockito.when(mockSvc.saySomething("John")).thenReturn("Mr.");
         Mockito.when(mockSvc.saySomething("Jane")).thenReturn("Miss");
 
+        /**
+         * Need to replace the 'svc' instance with mock
+         */
         QuarkusMock.installMockForInstance(mockSvc, svc);
 
         // Exploring the Mockito
